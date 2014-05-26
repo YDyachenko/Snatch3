@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PHDays iBank</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/css/index.css" rel="stylesheet" media="screen">
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="navbar navbar-fixed-top navbar-default" role="navigation">
+                <div class="container">
+                    <a class="navbar-brand" href="/">PHDays iBank</a>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/auth/logout">Logout</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <? if (!isset($controller)) $controller = '' ?>
+
+                        <li class="<? if ($controller == 'account') echo 'active' ?>"><a href="/account">Account</a></li>
+                        <? if ($controller == 'payments'): ?>
+                            <li class="active">
+                                <a href="/payments">Payments <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </li>
+                            <li class="subnav">
+                                <a href="/payments/create">Transfer</a>
+                            </li>
+                            <li class="subnav">
+                                <a href="/payments/history">History</a>
+                            </li>
+                            <li class="subnav">
+                                <a href="/payments/templates">Templates</a>
+                            </li>
+                        <? else: ?>
+                            <li>
+                                <a href="/payments">Payments</a>
+                            </li>
+                        <? endif ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 40px;">
+                <? if (!empty($income)): ?>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <?= $this->showIncome($income); ?>
+                    </div>
+                </div>
+                <? endif; ?>
+                
+                <?= $content ?>
+            </div>
+
+            <div id="push"></div>
+        </div>
+
+        <div id="footer">
+            <div class="container">
+                <p class="muted credit">&copy; 2014 PHDays iBank</p>
+            </div>
+        </div>
+    </body>
+</html>

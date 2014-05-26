@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>
+                History
+                <small>Last 50 transactions.</small>
+            </h1>
+            
+        </div>
+        <? if (!count($transactions)): ?>
+            <div class="alert alert-info">You don't have transactions</div>
+        <? else: ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Sum</th>
+                        <th>Date <i class="icon-chevron-down"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? foreach ($transactions as $transaction): ?>
+                        <tr>
+                            <td><?= $transaction->getId() ?></td>
+                            <td><?= $this->escapeHtml($accounts[$transaction->getFrom()]->getNumber()) ?></td>
+                            <td><?= $this->escapeHtml($accounts[$transaction->getTo()]->getNumber()) ?></td>
+                            <td>
+                                <?= $accounts[$transaction->getFrom()]->getUserId() == $user->getId() ? '-' : '+' ?>
+                                <?= $transaction->getSum() ?> <?= $this->currencySymbol($accounts[$transaction->getFrom()]->getCurrency()) ?>
+                            </td>
+                            <td><?= $this->escapeHtml($transaction->getDate()) ?></td>
+                        </tr>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        <? endif; ?>
+    </div>
+</div>

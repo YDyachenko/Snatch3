@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <div class="pull-right">
+                <a href="/auth/changePassword" class="btn btn-default">
+                    Change password
+                </a>
+            </div>
+            <h1>Information</h1>
+        </div>
+        <dl class="dl-horizontal">
+            <dt>Login</dt>
+            <dd><?= $this->escapeHtml($user->getLogin()) ?></dd>
+            <dt>Email</dt>
+            <dd><?= $this->escapeHtml($user->getEmail()) ?></dd>
+            <dt>Phone</dt>
+            <dd><?= $this->escapeHtml($user->getPhone()) ?></dd>
+            <dt>First name</dt>
+            <dd><?= $this->escapeHtml($user->getFirstName()) ?>&nbsp;</dd>
+            <dt>Last name</dt>
+            <dd><?= $this->escapeHtml($user->getLastName()) ?>&nbsp;</dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Accounts</h3>
+        <? if (!count($accounts)): ?>
+            <div class="alert alert-info">You don't have accounts</div>
+        <? else: ?>
+            <table class="table table-striped">
+                <tbody>
+                    <? foreach ($accounts as $account): ?>
+                        <tr>
+                            <td class="col-md-2"><?= $this->escapeHtml($account->getNumber()) ?></td>
+                            <td><?= $this->accountBalance($account) ?></td>
+                        </tr>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        <? endif; ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Active services</h3>
+        <? if (!count($services)): ?>
+            <div class="alert alert-info">You don't have active services</div>
+        <? else: ?>
+            <ul class="list-unstyled">
+                <? foreach ($services as $service): ?>
+                    <li>
+                        <span class="glyphicon glyphicon-ok" style="margin-right: 15px;"></span><?= $this->escapeHtml($service->getName()) ?>
+                    </li>
+                <? endforeach; ?>
+            </ul>
+        <? endif; ?>
+    </div>
+</div>

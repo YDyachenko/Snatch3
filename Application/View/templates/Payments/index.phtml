@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <div class="pull-right">
+                <a class="btn btn-success iconfix" href="/payments/create">
+                    <span class="glyphicon glyphicon-plus"></span>Start new
+                </a>
+            </div>
+            <h1>Transactions</h1>
+        </div>
+        <? if (!count($transactions)): ?>
+            <div class="alert alert-info">You don't have transactions</div>
+        <? else: ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Sum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? foreach ($transactions as $transaction): ?>
+                        <tr>
+                            <td><?= $transaction->getId() ?></td>
+                            <td><?
+                                $fromId = $transaction->getFrom();
+                                echo $this->escapeHtml($accounts[$fromId]->getNumber());
+                                ?></td>
+                            <td><?
+                                $toId = $transaction->getTo();
+                                echo $this->escapeHtml($accounts[$toId]->getNumber());
+                                ?></td>
+                            <td>
+                                <div class="pull-right">
+                                    <? if ($transaction->getConfirmed()): ?>
+                                        <a href="/payments/commit/id/<?= $transaction->getId() ?>" title="Commit" class="show-on-hover"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <? else: ?>
+                                        <a href="/payments/confirm<?= (strlen($transaction->getOtpCode()) ? 'Mtan' : 'Tan') ?>/id/<?= $transaction->getId() ?>" title="Confirm" class="show-on-hover"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <? endif; ?>
+                                    <a href="/payments/delete/id/<?= $transaction->getId() ?>" title="Delete" class="show-on-hover"><span class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                                <?= $transaction->getSum() ?> <?= $this->currencySymbol($accounts[$fromId]->getCurrency()) ?>
+                            </td>
+                        </tr>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        <? endif; ?>
+    </div>
+</div>

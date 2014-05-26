@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="pagination pull-right">
+            <? if ($page > 1): ?>
+            <li><a href="/operator/index/page/<?= $this->escapeHtml($page - 1) ?>">&laquo;</a></li>
+            <? else: ?>
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <? endif ?>
+            <li class="active"><a href="#">Page <?= $this->escapeHtml($page) ?> of <?= ceil($count/$limit)?></a></li>
+            <? if ($count > $limit * $page): ?>
+            <li><a href="/operator/index/page/<?= $this->escapeHtml($page + 1) ?>">&raquo;</a></li>
+            <? else: ?>
+            <li class="disabled"><a href="#">&raquo;</a></li>
+            <? endif ?>
+        </ul>
+
+        <h1>Users</h1>
+        <div class="list-group">
+            <? foreach ($users as $user): ?>
+                <a href="/operator/userinfo/id/<?= $user->getId() ?>" class="list-group-item">
+                    <?= $this->escapeHtml("{$user->getLogin()} - {$user->getFirstName()} {$user->getLastName()}") ?>
+                </a>
+            <? endforeach; ?>
+        </div>
+    </div>
+</div>

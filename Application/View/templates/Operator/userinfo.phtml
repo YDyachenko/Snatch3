@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Information</h1>
+        </div>
+        <dl class="dl-horizontal">
+            <dt>Login</dt>
+            <dd><?= $this->escapeHtml($user->getLogin()) ?>&nbsp;</dd>
+            <dt>Email</dt>
+            <dd><?= $this->escapeHtml($user->getEmail()) ?>&nbsp;</dd>
+            <dt>Phone</dt>
+            <dd><?= $this->escapeHtml($user->getPhone()) ?>&nbsp;</dd>
+            <dt>First name</dt>
+            <dd><?= $this->escapeHtml($user->getFirstName()) ?>&nbsp;</dd>
+            <dt>Last name</dt>
+            <dd><?= $this->escapeHtml($user->getLastName()) ?>&nbsp;</dd>
+        </dl>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Accounts</h3>
+        <? if (!count($accounts)): ?>
+        <div class="alert alert-info">User does not have accounts</div>
+        <? else: ?>
+        <table class="table table-striped">
+            <tbody>
+                <? foreach ($accounts as $account): ?>
+                    <tr>
+                        <td class="col-md-2"><?= $this->escapeHtml($account->getNumber()) ?></td>
+                        <td><?= $this->accountBalance($account) ?></td>
+                    </tr>
+                <? endforeach; ?>
+            </tbody>
+        </table>
+        <? endif; ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Active services</h3>
+        <? if (!count($services)): ?>
+        <div class="alert alert-info">User does not have active services</div>
+        <? else: ?>
+        <ul class="list-unstyled">
+                <? foreach ($services as $service): ?>
+                    <li>
+                        <span class="glyphicon glyphicon-ok" style="margin-right: 15px;"></span><?= $this->escapeHtml($service->getName()) ?>
+                    </li>
+                <? endforeach; ?>
+        </ul>
+        <? endif; ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Payment templates</h3>
+        <? if (!count($templates)): ?>
+        <div class="alert alert-info">User does not have templates</div>
+        <? else: ?>
+        <table class="table table-striped transaction-templates">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Sum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? foreach ($templates as $template): ?>
+                        <tr>
+                            <td><?= $this->escapeHtml($template->getName()) ?></td>
+                            <td><?
+                                $from = $template->getFrom();
+                                echo $this->escapeHtml($accounts[$from]->getNumber());
+                                ?></td>
+                            <td><?= $this->escapeHtml($template->getTo()) ?></td>
+                            <td>
+                                <div class="pull-right">
+                                    <a href="/operator/editTemplate/id/<?= $template->getId() ?>" title="Edit" class="show-on-hover"><span class="glyphicon glyphicon-edit"></span></a>
+                                </div>
+                                <?= $template->getSum() ?> <?= $this->currencySymbol($accounts[$from]->getCurrency()) ?>
+                            </td>
+                        </tr>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        <? endif; ?>
+    </div>
+</div>

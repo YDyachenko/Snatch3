@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1>Adding payment template</h1>
+        </div>
+        <form class="form-horizontal" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="inputName">Name</label>
+                <div class="col-sm-4">
+                    <input name="name" type="text" class="form-control" id="inputName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="inputFrom">From</label>
+                <div class="col-md-4">
+                    <select name="from" class="form-control" id="inputFrom">
+                        <? foreach ($accounts as $account): ?>
+                            <option value="<?= $account->getId() ?>">
+                                <?= $this->escapeHtml($account->getNumber()) ?>
+                                (<?= $this->accountBalance($account) ?>)
+                            </option>
+                        <? endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="inputTo">To</label>
+                <div class="col-sm-4">
+                    <input name="to" type="text" class="form-control" id="inputTo">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="inputSum">Sum</label>
+                <div class="col-sm-4">
+                    <input name="sum" type="text" class="form-control" id="inputSum" value="0.00">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-default" onclick="history.go(-1); return false;">Back</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
